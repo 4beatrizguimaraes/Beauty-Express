@@ -9,11 +9,14 @@ public class EstabelecimentosService : BaseService, IEstabelecimentosService
 {
     private readonly IEstabelecimentosRepository _estabelecimentosRepository;
     private readonly EstabelecimentosValidator _estabelecimentosValidator;
+    private readonly IAgendamentosService _agendamentosService;
 
-    public EstabelecimentosService(IEstabelecimentosRepository estabelecimentosRepository, EstabelecimentosValidator estabelecimentosValidator)
+    public EstabelecimentosService(IEstabelecimentosRepository estabelecimentosRepository, EstabelecimentosValidator estabelecimentosValidator,
+        IAgendamentosService agendamentosService)
     {
         _estabelecimentosRepository = estabelecimentosRepository;
         _estabelecimentosValidator = estabelecimentosValidator;
+        _agendamentosService = agendamentosService;
     }
 
     public async Task<Estabelecimento> Adicionar(Estabelecimento estabelecimento)
@@ -75,6 +78,11 @@ public class EstabelecimentosService : BaseService, IEstabelecimentosService
         if (await _estabelecimentosRepository.ObterPorId(id) == null)
         {
             throw new Exception("Estabelecimento não existe!");
+        }
+
+        if(await _agendamentosService.ExisteEstabelecimento(id))
+        {
+            throw new Exception("Estabelecimento vinculado a um agendamento!");
         }
 
         await _estabelecimentosRepository.Remover(id);

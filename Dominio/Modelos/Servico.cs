@@ -1,5 +1,4 @@
 using Dominio.Enumeradores;
-using Modelos.Profissional;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Dominio.Modelos
@@ -10,7 +9,6 @@ namespace Dominio.Modelos
         [NotNull] public string Nome { get; set; }
         public double DuracaoHoras { get; set; }
         public CategoriaServicoEnum Categoria { get; set; }      
-        public Profissional Profissional { get; set; }
-        public int IdProfissional { get; set; }
+        public int ProfissionalId { get; set; }
     }
 }

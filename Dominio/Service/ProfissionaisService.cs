@@ -10,11 +10,14 @@ public class ProfissionaisService : BaseService, IProfissionaisService
 {
     private readonly IProfissionaisRepository _profissionaisRepository;
     private readonly ProfissionaisValidator _profissionaisValidator;
+    private readonly IServicosService _servicosService;
 
-    public ProfissionaisService(IProfissionaisRepository profissionaisRepository, ProfissionaisValidator profissionaisValidator)
+    public ProfissionaisService(IProfissionaisRepository profissionaisRepository, ProfissionaisValidator profissionaisValidator,         
+        IServicosService servicosService)
     {
         _profissionaisRepository = profissionaisRepository;
         _profissionaisValidator = profissionaisValidator;
+        _servicosService = servicosService;
     }
 
     public async Task<Profissional> Adicionar(Profissional profissional)
@@ -77,6 +80,11 @@ public class ProfissionaisService : BaseService, IProfissionaisService
         {
             throw new Exception("Profissional não existe!");
         }
+
+        if (await _servicosService.ExisteServicoPorProfissionalId(id))
+        {
+            throw new Exception("Profissional vinculado a um Serviço!");
+        }        
 
         await _profissionaisRepository.Remover(id);
         return true;

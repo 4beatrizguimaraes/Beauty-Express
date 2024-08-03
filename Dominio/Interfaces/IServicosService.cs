@@ -9,4 +9,5 @@ public interface IServicosService
     Task<Servico> Adicionar(Servico servico);
     Task<bool> Atualizar(Servico servico);
     Task<bool> Remover(int id);
+    Task<bool> ExisteServicoPorProfissionalId(int id);
 }

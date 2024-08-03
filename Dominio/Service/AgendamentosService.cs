@@ -2,6 +2,7 @@
 using Dominio.Modelos;
 using Dominio.Validadores;
 using FluentValidation.Results;
+using System.Collections.Generic;
 
 namespace Dominio.Service;
 
@@ -9,11 +10,23 @@ public class AgendamentosService : BaseService, IAgendamentosService
 {
     private readonly IAgendamentosRepository _agendamentosRepository;
     private readonly AgendamentosValidator _agendamentosValidator;
+    private readonly IEstabelecimentosRepository _estabelecimentosRepository;
+    private readonly IDataHorariosRepository _horariosRepository;
+    private readonly IClienteRepository _clienteRepository;
+    private readonly IServicosRepository _servicosRepository;
 
-    public AgendamentosService(IAgendamentosRepository agendamentosRepository, AgendamentosValidator agendamentosValidator)
+    public AgendamentosService(IAgendamentosRepository agendamentosRepository, AgendamentosValidator agendamentosValidator, 
+        IEstabelecimentosRepository estabelecimentosRepository, 
+        IDataHorariosRepository horariosRepository, 
+        IClienteRepository clienteRepository, 
+        IServicosRepository servicosRepository)
     {
         _agendamentosRepository = agendamentosRepository;
         _agendamentosValidator = agendamentosValidator;
+        _estabelecimentosRepository = estabelecimentosRepository;
+        _horariosRepository = horariosRepository;
+        _clienteRepository = clienteRepository;
+        _servicosRepository = servicosRepository;
     }
 
     public async Task<Agendamento> Adicionar(Agendamento agendamento)
@@ -29,6 +42,8 @@ public class AgendamentosService : BaseService, IAgendamentosService
             }
             throw new Exception(erros);
         }
+        await ValidaChaves(agendamento);
+
         await _agendamentosRepository.Adicionar(agendamento);
         return agendamento;
     }
@@ -46,13 +61,30 @@ public class AgendamentosService : BaseService, IAgendamentosService
             }
             throw new Exception(erros);
         }
-        var clienteBusca = await _agendamentosRepository.ObterPorId(agendamento.Id);
-        if (clienteBusca == null)
-        {
-            throw new Exception("Agendamento não encontrada!");
-        }
+        await ValidaChaves(agendamento);
+
         await _agendamentosRepository.Atualizar(agendamento.Id, agendamento);
         return true;
+    }
+
+    public async Task<bool> ExisteCliente(int id)
+    {
+        return await _agendamentosRepository.ExisteCliente(id);
+    }
+
+    public async Task<bool> ExisteDataHorario(int id)
+    {
+        return await _agendamentosRepository.ExisteDataHorario(id);
+    }
+
+    public async Task<bool> ExisteEstabelecimento(int id)
+    {
+        return await _agendamentosRepository.ExisteEstabelecimento(id);
+    }
+
+    public async Task<bool> ExisteServico(int id)
+    {
+        return await _agendamentosRepository.ExisteServico(id);
     }
 
     public async Task<Agendamento> ObterPorId(int id)
@@ -79,5 +111,38 @@ public class AgendamentosService : BaseService, IAgendamentosService
 
         await _agendamentosRepository.Remover(id);
         return true;
+    }
+
+    private async Task ValidaChaves(Agendamento agendamento)
+    {
+        if(await _estabelecimentosRepository.ObterPorId(agendamento.EstabelecimentoId) == null)
+        {
+            throw new Exception("Estabelecimento não existe!");
+        }
+        if (await _horariosRepository.ObterPorId(agendamento.DataHorarioId) == null)
+        {
+            throw new Exception("Data Horario não existe!");
+        }
+        if (await _clienteRepository.ObterPorId(agendamento.ClienteId) == null)
+        {
+            throw new Exception("Cliente não existe!");
+        }
+        if (await _servicosRepository.ObterPorId(agendamento.ServicoId) == null)
+        {
+            throw new Exception("Serviço não existe!");
+        }
+        if (await _agendamentosRepository.ExisteAgendamentoClienteMesmoHorario(agendamento))
+        {
+            throw new Exception("Existe um outro agendamento para esse cliente nesse horario!");
+        }
+
+        var servicos = await _servicosRepository
+            .BuscaServicoPorProfissional(agendamento.ServicoId);
+
+
+        if (await _agendamentosRepository.ExisteAgendamentoProfissionalMesmoHorario(agendamento, servicos))
+        {
+            throw new Exception("Existe um outro agendamento para esse profissional nesse horario!");
+        }
     }
 }

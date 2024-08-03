@@ -10,11 +10,14 @@ public class DataHorariosService : BaseService, IDataHorariosService
 {
     private readonly IDataHorariosRepository _dataHorariosRepository;
     private readonly DataHorariosValidator _dataHorariosValidator;
+    private readonly IAgendamentosService _agendamentosService;
 
-    public DataHorariosService(IDataHorariosRepository dataHorariosRepository, DataHorariosValidator dataHorariosValidator)
+    public DataHorariosService(IDataHorariosRepository dataHorariosRepository, DataHorariosValidator dataHorariosValidator, 
+        IAgendamentosService agendamentosService)
     {
         _dataHorariosRepository = dataHorariosRepository;
         _dataHorariosValidator = dataHorariosValidator;
+        _agendamentosService = agendamentosService;
     }
 
     public async Task<DataHorario> Adicionar(DataHorario dataHorario)
@@ -76,6 +79,11 @@ public class DataHorariosService : BaseService, IDataHorariosService
         if (await _dataHorariosRepository.ObterPorId(id) == null)
         {
             throw new Exception("Data horario não existe!");
+        }
+
+        if (await _agendamentosService.ExisteDataHorario(id))
+        {
+            throw new Exception("Data horario vinculado a um agendamento!");
         }
 
         await _dataHorariosRepository.Remover(id);

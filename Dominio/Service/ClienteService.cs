@@ -9,11 +9,14 @@ public class ClienteService : BaseService, IClienteService
 {
     private readonly IClienteRepository _clienteRepository;
     private readonly ClienteValidator _clienteValidator;
+    private readonly IAgendamentosService _agendamentosService;
 
-    public ClienteService(IClienteRepository clienteRepository, ClienteValidator clienteValidator)
+    public ClienteService(IClienteRepository clienteRepository, ClienteValidator clienteValidator, 
+        IAgendamentosService agendamentosService)
     {
         _clienteRepository = clienteRepository;
         _clienteValidator = clienteValidator;
+        _agendamentosService = agendamentosService;
     }
 
     public async Task<Cliente> Adicionar(Cliente cliente)
@@ -75,6 +78,11 @@ public class ClienteService : BaseService, IClienteService
         if (await _clienteRepository.ObterPorId(id) == null)
         {
             throw new Exception("Cliente não existe!");
+        }
+
+        if (await _agendamentosService.ExisteCliente(id))
+        {
+            throw new Exception("Cliente vinculado a um agendamento!");
         }
 
         await _clienteRepository.Remover(id);
