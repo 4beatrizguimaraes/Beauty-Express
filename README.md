@@ -9,7 +9,7 @@ Este repositório é dedicado ao projeto final da disciplina Desenvolvimento Ful
 https://drive.google.com/drive/folders/1ofGKzhdtj3Xel30NbyeeRL5otI9zvP6Q?usp=sharing
 
 ## Ferramentas e Tecnologias
-Frontend: Javascript / HTML / CSS / Vue Js
+Frontend: Angular / Typescript
 
 Backend: C# / .Net
 
@@ -17,7 +17,5 @@ Banco de Dados: SQL Server
 
 ## Equipe
 Beatriz Batista Guimarães
-
-Bruno Gomes de Almeida
 
 Icaro Carneiro Caetano 
