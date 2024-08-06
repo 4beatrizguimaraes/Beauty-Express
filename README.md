@@ -46,7 +46,7 @@ Ex.: private readonly string ConexaoBanco = "Server=COLOQUE_AQUI_O_CAMINHO_DO_SE
 Configure a inicialização do projeto Backend. No Visual Studio, existe uma seta verde preenchida na barra de tarefas superior. Abrindo as opções de listagem, vá até 'Configurar Projetos de Inicialização' > Único Projeto de Inicialização > Selecione "Web". Aplique a alteração e clique em OK. 
 Execute o backend clicando novamente na seta verde que agora deve ter o texto "https". 
 
-Configure e inicialize o Frontend. Abra o terminal dentro do Visual Studio, navegue pelo caminho "Beauty-Express\Web\webapp\src". Para instalar as dependências, dentro de "src" execute:
+Configure e inicialize o Frontend. Abra o terminal, navegue pelo caminho "Beauty-Express\Web\webapp\src". Para instalar as dependências, dentro de "src" execute:
 
 `
 npm install 
