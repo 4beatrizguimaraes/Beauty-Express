@@ -60,7 +60,7 @@ npm install
 ng serve
 `
 
-9-Será exibido o local onde a aplicação está sendo executada. Copie o caminho e cole em seu navegador. A aplicação será exibida.
+9-Será exibido o local onde a aplicação está sendo executada. Copie o caminho e cole no navegador Chrome. A aplicação será exibida.
 
 10-Para iniciar, faça seu cadastro, em seguida o Login, e por fim seus agendamentos.
 
