@@ -33,7 +33,7 @@ Para executar o projeto, clone o repositório em sua máquina local. Abra a past
 Configure o banco de dados. Para isso, obtenha o caminho do servidor do seu banco SQL Server
 
 `
-(Ex.: DESKTOP-NQ31Q0H\SQLEXPRESS).
+(Ex.: DESKTOP-NQ31Q0H\\SQLEXPRESS).
 `
 
 Em seguida, dentro do Visual Studio, abra a pasta "Infra", localize o arquivo "BeautyContext.cs" e abra-o. 
@@ -46,15 +46,21 @@ Ex.: private readonly string ConexaoBanco = "Server=COLOQUE_AQUI_O_CAMINHO_DO_SE
 Configure a inicialização do projeto Backend. No Visual Studio, existe uma seta verde preenchida na barra de tarefas superior. Abrindo as opções de listagem, vá até 'Configurar Projetos de Inicialização' > Único Projeto de Inicialização > Selecione "Web". Aplique a alteração e clique em OK. 
 Execute o backend clicando novamente na seta verde que agora deve ter o texto "https". 
 
-Após iniciar o back, precisamos fazer uma inserção de dados iniciais, rodando a consulta no Banco de dados, a consulta está dentro do projeto em "...\Beauty-Express\Infra\script inicializacao.sql"
+Após iniciar o backend, precisamos fazer uma inserção de dados iniciais, rodando manualmente o script de inicialização no Banco de dados. O script está dentro do projeto em "...\Beauty-Express\Infra\script inicializacao.sql". Execute ele no banco de dados que já estará criado.
 
-Configure e inicialize o Frontend. Abra o terminal, navegue pelo caminho "Beauty-Express\Web\webapp\src". Para instalar as dependências, dentro de "src" execute:
+Configure e inicialize o Frontend. Abra o terminal, navegue pelo caminho "Beauty-Express\Web" e execute:
+
+`
+dotnet run --launch-profile https
+`
+
+Em seguida, navegue pelo caminho "Beauty-Express\Web\webapp\src". Para instalar as dependências, dentro de "src" execute:
 
 `
 npm install 
 `
 
-Em seguida, para iniciar o servidor de desenvolvimento do Angular, execute:
+Depois, para iniciar o servidor de desenvolvimento do Angular, execute no mesmo diretório:
 
 `
 ng serve
