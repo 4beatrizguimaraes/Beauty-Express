@@ -25,6 +25,7 @@ public class ServicosService : BaseService, IServicosService
 
     public async Task<Servico> Adicionar(Servico servico)
     {
+        servico.IdProfissional = servico.ProfissionalId;
         ValidationResult result = _servicosValidator.Validate(servico);
 
         if (!result.IsValid)
@@ -47,6 +48,7 @@ public class ServicosService : BaseService, IServicosService
 
     public async Task<bool> Atualizar(Servico servico)
     {
+        servico.IdProfissional = servico.ProfissionalId;
         ValidationResult result = _servicosValidator.Validate(servico);
 
         if (!result.IsValid)
@@ -83,6 +85,7 @@ public class ServicosService : BaseService, IServicosService
         {
             throw new Exception("Serviço não encontrada!");
         }
+        servico.IdProfissional = servico.ProfissionalId;
         return servico;
     }
 

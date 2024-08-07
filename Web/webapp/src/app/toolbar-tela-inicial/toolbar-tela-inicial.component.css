@@ -1,0 +1,80 @@
+
+.parte-1-cabecalho {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0px;
+    background-color: #ffccbdb9;
+}
+
+.logo {
+    width: 90px;
+    height: 90px;
+}
+
+.paralaxe {
+    margin-top: -50px;
+    height: 230px;
+    background-size: cover;
+    background-image: url("./../../assets/salao1.jpg");
+    background-repeat: no-repeat;
+    background-position: 15%;
+}
+
+.parte-1-apresentacao {
+    display: flex;
+    justify-content: center;
+    margin-top: 2%;
+    
+}
+
+.titulo-descricao {
+    font-family: "Poppins Bold", sans-serif;
+}
+  
+.poppins-regular {
+font-family: "Poppins Regular";
+font-weight: 400;
+font-style: normal;
+}
+
+.poppins-medium {
+font-family: "Poppins Medium", sans-serif;
+font-weight: 500;
+font-style: normal;
+}
+
+
+.poppins-bold {
+font-family: "Poppins Bold", sans-serif;
+font-weight: 700;
+font-style: normal;
+}
+
+.poppins-extrabold {
+font-family: "Poppins Extrabold", sans-serif;
+font-weight: 800;
+font-style: normal;
+}
+
+.poppins-black {
+font-family: "Poppins", sans-serif;
+font-weight: 900;
+font-style: normal;
+}
+
+.poppins-regular-italic {
+font-family: "Poppins", sans-serif;
+font-weight: 400;
+font-style: italic;
+}
+
+.poppins-medium-italic {
+font-family: "Poppins", sans-serif;
+font-weight: 500;
+font-style: italic;
+}
+
+
+
+

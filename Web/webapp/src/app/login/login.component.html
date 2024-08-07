@@ -1,0 +1,17 @@
+<section class="text-gray-600 body-font">
+    <div class="container px-5 py-20 mx-auto flex flex-wrap items-center justify-center">
+      <form class="lg:w-2/6 bg-gray-300 rounded-lg p-8 flex flex-col w-full" [formGroup]="formLogin">
+        <h2 class="text-gray-900 text-lg font-medium title-font mb-5">Faça Login</h2>
+        <div class="relative mb-4">
+          <label for="nomeouemail" class="leading-7 text-sm text-gray-600">Nome ou Email</label>
+          <input type="text" id="nomeouemail" name="nomeouemail" formControlName="nomeouemail" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+        </div>
+        <div class="relative mb-4">
+          <label for="senha" class="leading-7 text-sm text-gray-600">Senha</label>
+          <input type="password" id="senha" name="senha" formControlName="senha" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+        </div>
+        <button (click)="aoClicarEmLogar()" class="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Login</button>
+        <a routerLink="/cadastro" ariaCurrentWhenActive="page" class="text-xs text-gray-500 mt-3 text-indigo-900 hover:text-blue-800 hover:cursor-pointer">Não possuo login. Criar uma conta.</a>
+      </form>
+    </div>
+  </section>

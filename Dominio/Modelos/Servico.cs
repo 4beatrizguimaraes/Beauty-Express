@@ -10,5 +10,8 @@ namespace Dominio.Modelos
         public double DuracaoHoras { get; set; }
         public CategoriaServicoEnum Categoria { get; set; }      
         public int ProfissionalId { get; set; }
+
+        public int IdProfissional { get; set; }
+
     }
 }

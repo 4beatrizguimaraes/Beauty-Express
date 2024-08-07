@@ -1,4 +1,5 @@
-﻿using Dominio.Validadores;
+﻿using Dominio.Service;
+using Dominio.Validadores;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,8 @@ namespace Dominio
         {
             servicos.AddScoped<PagamentoValidator>();
             servicos.AddScoped<PagamentoCartaoValidator>();
-
+            servicos.AddScoped<TokenService>();
+            servicos.AddScoped<LoginService>();
         }
     }
 }

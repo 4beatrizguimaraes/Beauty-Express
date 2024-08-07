@@ -1,4 +1,7 @@
-﻿namespace Dominio.Modelos
+﻿using Modelos.Cliente;
+using Modelos.DataHorario;
+
+namespace Dominio.Modelos
 {
     public class Agendamento : EntitiesAbstract
     {
@@ -7,5 +10,8 @@
         public int ServicoId { get; set; }
         public int ClienteId { get; set; }
         public int DataHorarioId { get; set; }
+        public int IdServico { get; set; }
+        public int IdCliente{ get; set; }
+
     }
 }

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infra.Migrations
 {
     [DbContext(typeof(BeautyContext))]
-    [Migration("20240720184150_202407201532_Segunda_migracao")]
-    partial class _202407201532_Segunda_migracao
+    [Migration("20240806215054_teste1")]
+    partial class teste1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,6 +33,9 @@ namespace Infra.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("ClienteId")
+                        .HasColumnType("int");
+
                     b.Property<int>("DataHorarioId")
                         .HasColumnType("int");
 
@@ -45,19 +48,10 @@ namespace Infra.Migrations
                     b.Property<int>("IdServico")
                         .HasColumnType("int");
 
-                    b.Property<int>("clienteId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("servicoId")
+                    b.Property<int>("ServicoId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("DataHorarioId");
-
-                    b.HasIndex("clienteId");
-
-                    b.HasIndex("servicoId");
 
                     b.ToTable("Agendamentos");
                 });
@@ -112,8 +106,6 @@ namespace Infra.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ProfissionalId");
 
                     b.ToTable("Servicos");
                 });
@@ -238,6 +230,12 @@ namespace Infra.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("EstabelecimentoId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Foto")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -245,44 +243,6 @@ namespace Infra.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Profissionais");
-                });
-
-            modelBuilder.Entity("Dominio.Modelos.Agendamento", b =>
-                {
-                    b.HasOne("Modelos.DataHorario.DataHorario", "DataHorario")
-                        .WithMany()
-                        .HasForeignKey("DataHorarioId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Modelos.Cliente.Cliente", "cliente")
-                        .WithMany()
-                        .HasForeignKey("clienteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Dominio.Modelos.Servico", "servico")
-                        .WithMany()
-                        .HasForeignKey("servicoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("DataHorario");
-
-                    b.Navigation("cliente");
-
-                    b.Navigation("servico");
-                });
-
-            modelBuilder.Entity("Dominio.Modelos.Servico", b =>
-                {
-                    b.HasOne("Modelos.Profissional.Profissional", "Profissional")
-                        .WithMany()
-                        .HasForeignKey("ProfissionalId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Profissional");
                 });
 #pragma warning restore 612, 618
         }

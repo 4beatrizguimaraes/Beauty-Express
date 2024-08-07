@@ -37,6 +37,22 @@ namespace Web.Controllers
             }
         }
 
+        [HttpGet("estabelecimento/{idEstabelecimento}/profissionais")]
+        public async Task<ActionResult> ObterProfissionaisPorEstabelecimento([FromRoute] int idEstabelecimento)
+        {
+            try
+            {
+                return Ok(await _profissionaisService.ObterPorEstabelecimento(idEstabelecimento));
+            }
+            catch (Exception ex)
+            {
+                return ValidationProblem(new ValidationProblemDetails(ModelState)
+                {
+                    Title = ex.Message
+                });
+            }
+        }
+
         [HttpPost("profissional")]
         public async Task<ActionResult> Adicionar([FromBody] Profissional profissional)
         {

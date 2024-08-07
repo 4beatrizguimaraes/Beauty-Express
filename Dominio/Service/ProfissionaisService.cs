@@ -74,6 +74,11 @@ public class ProfissionaisService : BaseService, IProfissionaisService
         return await _profissionaisRepository.ObterTodos();
     }
 
+    public async Task<IEnumerable<Profissional>> ObterPorEstabelecimento(int idEstabelecimento) 
+    {
+        return await _profissionaisRepository.ObterPorEstabelecimento(idEstabelecimento);
+    }
+
     public async Task<bool> Remover(int id)
     {
         if (await _profissionaisRepository.ObterPorId(id) == null)

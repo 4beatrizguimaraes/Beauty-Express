@@ -39,6 +39,12 @@ namespace Infra.Migrations
                     b.Property<int>("EstabelecimentoId")
                         .HasColumnType("int");
 
+                    b.Property<int>("IdCliente")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdServico")
+                        .HasColumnType("int");
+
                     b.Property<int>("ServicoId")
                         .HasColumnType("int");
 
@@ -85,6 +91,9 @@ namespace Infra.Migrations
 
                     b.Property<double>("DuracaoHoras")
                         .HasColumnType("float");
+
+                    b.Property<int>("IdProfissional")
+                        .HasColumnType("int");
 
                     b.Property<string>("Nome")
                         .IsRequired()
@@ -216,6 +225,12 @@ namespace Infra.Migrations
 
                     b.Property<string>("Especialidade")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("EstabelecimentoId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Foto")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nome")

@@ -6,45 +6,28 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Infra.Migrations
 {
     /// <inheritdoc />
-    public partial class _202407201532_Segunda_migracao : Migration
+    public partial class teste1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<int>(
-                name: "DataHorarioId",
-                table: "Agendamentos",
-                type: "int",
-                nullable: false,
-                defaultValue: 0);
-
-            migrationBuilder.AddColumn<int>(
-                name: "IdCliente",
-                table: "Agendamentos",
-                type: "int",
-                nullable: false,
-                defaultValue: 0);
-
-            migrationBuilder.AddColumn<int>(
-                name: "IdServico",
-                table: "Agendamentos",
-                type: "int",
-                nullable: false,
-                defaultValue: 0);
-
-            migrationBuilder.AddColumn<int>(
-                name: "clienteId",
-                table: "Agendamentos",
-                type: "int",
-                nullable: false,
-                defaultValue: 0);
-
-            migrationBuilder.AddColumn<int>(
-                name: "servicoId",
-                table: "Agendamentos",
-                type: "int",
-                nullable: false,
-                defaultValue: 0);
+            migrationBuilder.CreateTable(
+                name: "Agendamentos",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EstabelecimentoId = table.Column<int>(type: "int", nullable: false),
+                    ServicoId = table.Column<int>(type: "int", nullable: false),
+                    ClienteId = table.Column<int>(type: "int", nullable: false),
+                    DataHorarioId = table.Column<int>(type: "int", nullable: false),
+                    IdServico = table.Column<int>(type: "int", nullable: false),
+                    IdCliente = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Agendamentos", x => x.Id);
+                });
 
             migrationBuilder.CreateTable(
                 name: "Clientes",
@@ -76,6 +59,21 @@ namespace Infra.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_DataHorarios", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Estabelecimentos",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Endereco = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Telefone = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Estabelecimentos", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -126,7 +124,9 @@ namespace Infra.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nome = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Especialidade = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Especialidade = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Foto = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EstabelecimentoId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -148,79 +148,23 @@ namespace Infra.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Servicos", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Servicos_Profissionais_ProfissionalId",
-                        column: x => x.ProfissionalId,
-                        principalTable: "Profissionais",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Agendamentos_clienteId",
-                table: "Agendamentos",
-                column: "clienteId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Agendamentos_DataHorarioId",
-                table: "Agendamentos",
-                column: "DataHorarioId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Agendamentos_servicoId",
-                table: "Agendamentos",
-                column: "servicoId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Servicos_ProfissionalId",
-                table: "Servicos",
-                column: "ProfissionalId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Agendamentos_Clientes_clienteId",
-                table: "Agendamentos",
-                column: "clienteId",
-                principalTable: "Clientes",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Agendamentos_DataHorarios_DataHorarioId",
-                table: "Agendamentos",
-                column: "DataHorarioId",
-                principalTable: "DataHorarios",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Agendamentos_Servicos_servicoId",
-                table: "Agendamentos",
-                column: "servicoId",
-                principalTable: "Servicos",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Agendamentos_Clientes_clienteId",
-                table: "Agendamentos");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_Agendamentos_DataHorarios_DataHorarioId",
-                table: "Agendamentos");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_Agendamentos_Servicos_servicoId",
-                table: "Agendamentos");
+            migrationBuilder.DropTable(
+                name: "Agendamentos");
 
             migrationBuilder.DropTable(
                 name: "Clientes");
 
             migrationBuilder.DropTable(
                 name: "DataHorarios");
+
+            migrationBuilder.DropTable(
+                name: "Estabelecimentos");
 
             migrationBuilder.DropTable(
                 name: "Pagamentos");
@@ -232,42 +176,10 @@ namespace Infra.Migrations
                 name: "PagamentosPix");
 
             migrationBuilder.DropTable(
-                name: "Servicos");
-
-            migrationBuilder.DropTable(
                 name: "Profissionais");
 
-            migrationBuilder.DropIndex(
-                name: "IX_Agendamentos_clienteId",
-                table: "Agendamentos");
-
-            migrationBuilder.DropIndex(
-                name: "IX_Agendamentos_DataHorarioId",
-                table: "Agendamentos");
-
-            migrationBuilder.DropIndex(
-                name: "IX_Agendamentos_servicoId",
-                table: "Agendamentos");
-
-            migrationBuilder.DropColumn(
-                name: "DataHorarioId",
-                table: "Agendamentos");
-
-            migrationBuilder.DropColumn(
-                name: "IdCliente",
-                table: "Agendamentos");
-
-            migrationBuilder.DropColumn(
-                name: "IdServico",
-                table: "Agendamentos");
-
-            migrationBuilder.DropColumn(
-                name: "clienteId",
-                table: "Agendamentos");
-
-            migrationBuilder.DropColumn(
-                name: "servicoId",
-                table: "Agendamentos");
+            migrationBuilder.DropTable(
+                name: "Servicos");
         }
     }
 }
